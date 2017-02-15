@@ -11,6 +11,8 @@ Entrada:
 3,67890
 0,0
 
+Se puede revisar el archivo "Ejercicio LCD.pdf"
+
 ##Ejecutar el programa
 
 Para ver funcionando el programa sin necesidad de configurar el ambiente se puede instalar el cliente de docker ejecutar los siguientes comandos

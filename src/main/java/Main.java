@@ -23,24 +23,24 @@ public class Main {
         InputReader inputReader = new CommandLineInputReader();
         ASCCIIWriter ascciiWriter = new DefaultASCIIWriter();
         Display display = new CommandLineDisplay();
-        String line;
+        String commandLine;
 
-        display.print(new UserOutput("Welcome to ASCII art"));
+        display.print(new UserOutput("Welcome to ASCII art (Finish this program with 0 0)"));
 
-        while ((line = sc.nextLine()) != null) {
+        while ((commandLine = sc.nextLine()) != null) {
             try {
 
-                UserInput userInput = inputReader.readInput(new UserCommand(line));
-                if (userInput.getSize() == 0) {
-
-                    display.print(new UserOutput("Size must be between 1 and 10"));
-
-                } else if (userInput.getSize() == 0
+                UserInput userInput = inputReader.readInput(new UserCommand(commandLine));
+                if (userInput.getSize() == 0
                         && userInput.getDigits().length() == 1
                         && Short.parseShort(userInput.getDigits()) == 0) {
 
                     display.print(new UserOutput("Goodbye"));
                     break;
+
+                } else if (userInput.getSize() == 0) {
+
+                    display.print(new UserOutput("Size must be between 1 and 10"));
 
                 } else {
                     String ascci = ascciiWriter.createASCII(userInput);

@@ -19,7 +19,7 @@ import pslcorp.lcddisplay.inputreader.UserInput;
  */
 public class DefaultASCIIWriter implements ASCCIIWriter {
 
-    private final char SPACE = Character.SPACE_SEPARATOR;
+    private final char SPACE = ' ';
     private final char[][] lookupChar = {
              /* 0   1   2   3   4   5   6 */
     /* 0 */ {'-', '|', '|', ' ', '|', '|', '-'},

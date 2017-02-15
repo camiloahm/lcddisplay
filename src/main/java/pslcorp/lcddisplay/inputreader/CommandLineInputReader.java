@@ -29,7 +29,7 @@ public class CommandLineInputReader implements InputReader {
                 return new UserInput(size, digits);
 
             } else {
-                throw new IllegalArgumentException("Size and digits must be Numbers");
+                throw new IllegalArgumentException("Size and digits must be numbers");
             }
         } catch (NumberFormatException ex) {
             throw new IllegalArgumentException("Size must be between 1 and 10");
@@ -44,7 +44,7 @@ public class CommandLineInputReader implements InputReader {
                 .collect(Collectors.toList());
 
         if (splitOnWhitespace.size() != 2)
-            throw new IllegalArgumentException("This programs receives 2 parameter Size and Digits");
+            throw new IllegalArgumentException("This programs receives 2 numbers Size and Digits");
 
         return splitOnWhitespace;
     }

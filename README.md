@@ -11,3 +11,22 @@ Entrada:
 3,67890
 0,0
 
+##Ejecutar el programa
+
+Para ver funcionando el programa sin necesidad de configurar el ambiente se puede instalar el cliente de docker ejecutar los siguientes comandos
+
+```sh
+docker pull camiloahm/psllcddisplay
+```
+
+```sh
+docker run -it --rm camiloahm/psllcddisplay
+```
+
+## Configuración del ambiente
+
+El proyecto fue desarrollaro con JDK 8, y el build esta configurado para realizarse con Maven cuando el ambiente tenga instalado los componentes anteriores se debe de ejecutar el siguiente comando
+
+```sh
+mvn clean install
+```

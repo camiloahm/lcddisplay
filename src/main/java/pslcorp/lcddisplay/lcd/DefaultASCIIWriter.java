@@ -19,8 +19,8 @@ import pslcorp.lcddisplay.inputreader.UserInput;
  */
 public class DefaultASCIIWriter implements ASCCIIWriter {
 
-    private final char SPACE = ' ';
-    private final char[][] lookupChar = {
+    private final char SPACE_CHARACTER = ' ';
+    private final char[][] charConvention = {
              /* 0   1   2   3   4   5   6 */
     /* 0 */ {'-', '|', '|', ' ', '|', '|', '-'},
     /* 1 */ {' ', '|', ' ', ' ', '|', ' ', ' '},
@@ -51,31 +51,31 @@ public class DefaultASCIIWriter implements ASCCIIWriter {
 
                 //Positions 0,3,6 upper-middle-lower
                 if (uml == 0) {
-                    output.append(SPACE);
+                    output.append(SPACE_CHARACTER);
                     for (int k = 0; k < userInput.getSize(); k++) {
-                        output.append(lookupChar[digit][position]);
+                        output.append(charConvention[digit][position]);
                     }
-                    output.append(SPACE);
+                    output.append(SPACE_CHARACTER);
                 } else
                     //Positions 2,1 Upper parts
                     if (row > 0 && row < (userInput.getSize() + 1)) {
-                        output.append(lookupChar[digit][2]);
+                        output.append(charConvention[digit][2]);
                         for (int k = 0; k < userInput.getSize(); k++) {
-                            output.append(SPACE);
+                            output.append(SPACE_CHARACTER);
                         }
-                        output.append(lookupChar[digit][1]);
+                        output.append(charConvention[digit][1]);
                     } else
                         //PositionsLower 5,4 parts
                         if (row > (userInput.getSize() + 1) && row < lower) {
-                            output.append(lookupChar[digit][5]);
+                            output.append(charConvention[digit][5]);
                             for (int k = 0; k < userInput.getSize(); k++) {
-                                output.append(SPACE);
+                                output.append(SPACE_CHARACTER);
                             }
-                            output.append(lookupChar[digit][4]);
+                            output.append(charConvention[digit][4]);
                         }
 
                 if (d != userInput.getDigits().length() - 1)
-                    output.append(SPACE);
+                    output.append(SPACE_CHARACTER);
             }
             output.append("\n");
         }

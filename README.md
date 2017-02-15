@@ -15,7 +15,7 @@ Se puede revisar el archivo "Ejercicio LCD.pdf"
 
 ##Ejecutar el programa
 
-Para ver funcionando el programa sin necesidad de configurar el ambiente se puede instalar el cliente de docker ejecutar los siguientes comandos
+Para ver funcionando el programa sin necesidad de configurar el ambiente se puede instalar docker y ejecutar los siguientes comandos
 
 ```sh
 docker pull camiloahm/psllcddisplay
@@ -27,7 +27,7 @@ docker run -it --rm camiloahm/psllcddisplay
 
 ## Configuración del ambiente
 
-El proyecto fue desarrollaro con JDK 8, y el build esta configurado para realizarse con Maven cuando el ambiente tenga instalado los componentes anteriores se debe de ejecutar el siguiente comando
+El proyecto fue desarrollado con JDK 8, y el build esta configurado para realizarse con Maven, cuando se encuentren instalados los componentes anteriores, se debe de ejecutar el siguiente comando
 
 ```sh
 mvn clean install

@@ -2,120 +2,54 @@
  * Created by CamiloH on 2/13/2017.
  */
 
-import java.io.BufferedReader;
+import pslcorp.lcddisplay.display.CommandLineDisplay;
+import pslcorp.lcddisplay.display.Display;
+import pslcorp.lcddisplay.display.UserOutput;
+import pslcorp.lcddisplay.inputreader.CommandLineInputReader;
+import pslcorp.lcddisplay.inputreader.InputReader;
+import pslcorp.lcddisplay.inputreader.UserCommand;
+import pslcorp.lcddisplay.inputreader.UserInput;
+import pslcorp.lcddisplay.lcd.ASCCIIWriter;
+import pslcorp.lcddisplay.lcd.DefaultASCIIWriter;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
-    static final char SPACE = ' ';
 
     public static void main(String[] args) throws IOException {
+
         Scanner sc = new Scanner(System.in);
+        InputReader inputReader = new CommandLineInputReader();
+        ASCCIIWriter ascciiWriter = new DefaultASCIIWriter();
+        Display display = new CommandLineDisplay();
         String line;
-        int size;
-        String number;
+
+        display.print(new UserOutput("Welcome to ASCII art"));
 
         while ((line = sc.nextLine()) != null) {
+            try {
 
-            List<String> splitOnWhitespace = Stream
-                    .of(line)
-                    .map(w -> w.split("\\s+")).flatMap(Arrays::stream)
-                    .collect(Collectors.toList());
+                UserInput userInput = inputReader.readInput(new UserCommand(line));
+                if (userInput.getSize() == 0) {
 
-            if (splitOnWhitespace.size() != 2)
-                break;
+                    display.print(new UserOutput("Size must be between 1 and 10"));
 
-            size = Integer.parseInt(splitOnWhitespace.get(0));
-            number = Integer.valueOf(splitOnWhitespace.get(1)).toString();
+                } else if (userInput.getSize() == 0
+                        && userInput.getDigits().length() == 1
+                        && Short.parseShort(userInput.getDigits()) == 0) {
 
-            if (size == 0)
-                break;
+                    display.print(new UserOutput("Goodbye"));
+                    break;
 
-            if (size == 0 && number.equals("0"))
-                break;
-
-
-            int rows = 2 * size + 3;
-
-   /*
-    * LED representation for each number, according to
-    * the following convention:
-    *
-    *  -0-
-    * |   |
-    * 2   1
-    * |   |
-    *  -3-
-    * |   |
-    * 5   4
-    * |   |
-    *  -6-
-    *
-    */
-
-            char[][] lookupChar = {
-             /* 0   1   2   3   4   5   6 */
-    /* 0 */ {'-', '|', '|', ' ', '|', '|', '-'},
-    /* 1 */ {' ', '|', ' ', ' ', '|', ' ', ' '},
-    /* 2 */ {'-', '|', ' ', '-', ' ', '|', '-'},
-    /* 3 */ {'-', '|', ' ', '-', '|', ' ', '-'},
-    /* 4 */ {' ', '|', '|', '-', '|', ' ', ' '},
-    /* 5 */ {'-', ' ', '|', '-', '|', ' ', '-'},
-    /* 6 */ {'-', ' ', '|', '-', '|', '|', '-'},
-    /* 7 */ {'-', '|', ' ', ' ', '|', ' ', ' '},
-    /* 8 */ {'-', '|', '|', '-', '|', '|', '-'},
-    /* 9 */ {'-', '|', '|', '-', '|', ' ', '-'}
-
-            };
-
-            StringBuilder output = new StringBuilder();
-
-            for (int row = 0; row < rows; row++) {
-                int position = (row / (size + 1)) * 3;
-                int uml = row % (size + 1);
-                int lower = 2 * size + 2;
-
-                for (int d = 0; d < number.length(); d++) {
-                    int digit = number.charAt(d) - '0';
-
-                    //upper-middle-lower horizontal parts
-                    if (uml == 0) {
-                        output.append(SPACE);
-                        for (int k = 0; k < size; k++) {
-                            output.append(lookupChar[digit][position]);
-                        }
-                        output.append(SPACE);
-                    } else
-                        //upper-middle parts
-                        if (row > 0 && row < (size + 1)) {
-                            output.append(lookupChar[digit][2]);
-                            for (int k = 0; k < size; k++) {
-                                output.append(SPACE);
-                            }
-                            output.append(lookupChar[digit][1]);
-                        } else
-                            //middle-lower parts
-                            if (row > (size + 1) && row < lower) {
-                                output.append(lookupChar[digit][5]);
-                                for (int k = 0; k < size; k++) {
-                                    output.append(SPACE);
-                                }
-                                output.append(lookupChar[digit][4]);
-                            }
-
-                    if (d != number.length() - 1)
-                        output.append(SPACE);
+                } else {
+                    String ascci = ascciiWriter.createASCII(userInput);
+                    display.print(new UserOutput(ascci));
                 }
-                output.append("\n");
+
+            } catch (IllegalArgumentException ex) {
+                display.print(new UserOutput(ex.getMessage()));
             }
-            System.out.print(output.toString());
-            System.out.println();
         }
     }
 }

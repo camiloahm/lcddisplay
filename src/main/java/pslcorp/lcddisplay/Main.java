@@ -43,8 +43,8 @@ public class Main {
                     display.print(new UserOutput("Size must be between 1 and 10"));
 
                 } else {
-                    String ascci = ascciiWriter.createASCII(userInput);
-                    display.print(new UserOutput(ascci));
+                    String ascii = ascciiWriter.createASCII(userInput);
+                    display.print(new UserOutput(ascii));
                 }
 
             } catch (IllegalArgumentException ex) {
